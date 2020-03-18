@@ -5,10 +5,10 @@ import torch.nn as nn
 import torch.optim as optim
 
 from environments.FourRooms import *
-from models.NEC import *
-from models.DND import *
+#from models.NEC import *
+#from models.DND import *
 from models.MFEC import *
-from utils.atari_wrappers import make_atari, wrap_deepmind
+#from utils.atari_wrappers import make_atari, wrap_deepmind
 from utils.utils import inverse_distance
 
 parser = argparse.ArgumentParser()
@@ -134,10 +134,7 @@ def main(args):
     print("Using cuda: ", use_cuda)
 
     # Environment
-    if args.environment_type == 'atari':
-        env = make_atari(args.env_id)
-        env = wrap_deepmind(env,args.frames_to_stack,scale=True)
-    elif args.environment_type == 'fourrooms':
+    if args.environment_type == 'fourrooms':
         env = FourRooms(args.room_size,args.fourrooms_state_type)
 
     # Random seed
@@ -147,10 +144,8 @@ def main(args):
     # Agent
     if args.agent == 'MFEC':
         agent = MFEC(env,args,device)
-    elif args.agent == 'NEC':
-        agent = NEC(env,args,device)
 
-    # Pretraining: autoencoder in MFEC or DND warmup in NEC
+    # Pretraining: autoencoder in MFEC
     agent.warmup()
 
     # Training loop
