@@ -1,3 +1,9 @@
+"""
+Code was adapted from:
+https://github.com/astier/model-free-episodic-control
+We changed about 65% of it.
+"""
+
 import random
 import numpy as np
 import torch

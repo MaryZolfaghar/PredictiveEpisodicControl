@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+Code was adapted from:
+https://github.com/astier/model-free-episodic-control
+We changed some things maybe ~10%-20%
+"""
 
 import numpy as np
 from sklearn.neighbors.kd_tree import KDTree

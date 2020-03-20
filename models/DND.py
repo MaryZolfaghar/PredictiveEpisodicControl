@@ -1,4 +1,7 @@
-# This code is taken from: https://github.com/mjacar/pytorch-nec/blob/master/dnd.py
+"""
+Code was adapted from:
+https://github.com/mjacar/pytorch-nec/blob/master/dnd.py
+"""
 
 import torch
 from torch.nn import Parameter
