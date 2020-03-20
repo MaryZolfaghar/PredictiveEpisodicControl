@@ -8,10 +8,7 @@ import torch.nn as nn
 import torch.optim as optim
 
 from environments.FourRooms import *
-#from models.NEC import *
-#from models.DND import *
 from models.MFEC import *
-#from utils.atari_wrappers import make_atari, wrap_deepmind
 from utils.utils import inverse_distance
 
 parser = argparse.ArgumentParser()
@@ -21,27 +18,27 @@ parser.add_argument('--use_cuda', action='store_true',
 parser.add_argument('--seed', type=int, default=1,
                     help='Random seed')
 # Environment
-parser.add_argument('--environment_type', default='atari',
+parser.add_argument('--environment_type', default='fourrooms',
                     choices=['atari','fourrooms'],
                     help='Type of environment to use.')
-parser.add_argument('--room_size', type=int, default=13,
+parser.add_argument('--room_size', type=int, default=9,
                     help='Size of one side of each room in fourrooms')
-parser.add_argument('--fourrooms_state_type', default='tabular',
+parser.add_argument('--fourrooms_state_type', default='mnist',
                     choices=['tabular','mnist'],
                     help='Type of state to return in fourrooms env')
 parser.add_argument('--env_id', default='PongNoFrameskip-v0',
                     choices=['PongNoFrameskip-v0','BreakoutNoFrameskip-v0'],
                     help='OpenAI gym name for Atari env to use for training')
-parser.add_argument('--frames_to_stack', type=int, default=4,
+parser.add_argument('--frames_to_stack', type=int, default=1,
                     help='Number of prev. frames to fold into current state')
 # Training
-parser.add_argument('--n_episodes', type=int, default=10000,
+parser.add_argument('--n_episodes', type=int, default=20000,
                     help='Number of episodes for training')
 parser.add_argument('--initial_epsilon', type=float, default=1.0,
                     help='Initial probability of selecting random action')
-parser.add_argument('--final_epsilon', type=float, default=0.01,
+parser.add_argument('--final_epsilon', type=float, default=0.1,
                     help='Final probability of selecting random action')
-parser.add_argument('--epsilon_decay', type=float, default=0.99,
+parser.add_argument('--epsilon_decay', type=float, default=0.9,
                     help='Decay for probability of selecting random action')
 parser.add_argument('--gamma', type=float, default=0.99,
                     help='Temporal discounting parameter')
@@ -79,25 +76,25 @@ parser.add_argument('--force_knn', action='store_true',
                     help='Always estimate values using k nearest neighbors')
 parser.add_argument('--weight_neighbors', action='store_true',
                     help='weight neighbors according to similarity')
-parser.add_argument('--delta',type=float, default=0.1,
+parser.add_argument('--delta',type=float, default=0.01,
                     help='Small constant to add in similarity calculation')
 
 # Model
-parser.add_argument('--agent', choices=['NEC','MFEC'],
+parser.add_argument('--agent', choices=['NEC','MFEC'], default='MFEC',
                     help='Type of agent to use')
-parser.add_argument('--num_neighbors', type=int, default=50,
+parser.add_argument('--num_neighbors', type=int, default=3,
                     help='Number of nearest neighbors used for lookup')
 parser.add_argument('--embedding_type', choices=['VAE','random','SR'], default='VAE',
                     help='Type of embedding model for MFEC')
 parser.add_argument('--SR_embedding_type', choices=['random','VAE','pixels'], default='random',
                     help='Type of embedding model for SR')
-parser.add_argument('--embedding_size', type=int, default=64,
+parser.add_argument('--embedding_size', type=int, default=32,
                     help='Dimension of state embeddings (default from mjacar)')
-parser.add_argument('--in_height', type=int, default=84,
+parser.add_argument('--in_height', type=int, default=28,
                     help='The height of the input')
-parser.add_argument('--in_width', type=int, default=84,
+parser.add_argument('--in_width', type=int, default=28,
                     help='The width of the input')
-parser.add_argument('--max_memory', type=int, default=500000,
+parser.add_argument('--max_memory', type=int, default=328,
                     help='Maximum number of memories in DND')
 parser.add_argument('--load_vae_from',default=None,
                     help='Path to file to load vae weights from')
@@ -114,7 +111,7 @@ parser.add_argument('--q_lr', type=float, default=0.01,
                     help='Learning rate for Q-values (default from mjacar)')
 
 # Output options
-parser.add_argument('--print_every', type=int, default=1000,
+parser.add_argument('--print_every', type=int, default=20,
                     help='Number of episodes before printing some score data')
 parser.add_argument('--vae_print_every', type=int, default=1000,
                     help='Number of batches before printing vae data')
