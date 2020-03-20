@@ -1,3 +1,9 @@
+"""
+Code was adapted from:
+https://github.com/mjacar/pytorch-nec/blob/master/utils/math_utils.py
+We changed most of it.
+"""
+
 import torch
 import torch.optim as optim
 
