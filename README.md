@@ -1,6 +1,4 @@
-# Predictive Episodic Control
-A predictive version of the neural episodic control models
-
+# Temporal Abstraction in Episodic Control
 Exploring the use of temporal abstraction in the context of episodic control.
 
 ### Environment Setup
