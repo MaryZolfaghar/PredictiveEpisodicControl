@@ -21,7 +21,6 @@ python train.py \
 --vae_epochs 10 \
 --lr 1e-5 \
 --vae_print_every 100 \
---load_vae_from ../weights/VAE/VAE_rooms_mnist.pt \
 --out_data_f
 
 #### SR (DP):
