@@ -7,6 +7,9 @@ Install [numpy](https://anaconda.org/conda-forge/numpy), [pytorch](https://anaco
 
 Install jupyter-notebook (We have added a jupyter notebook and its corresponding Colab link).
 
+### dataset
+mnist dataset can be download from [here](http://yann.lecun.com/exdb/mnist/)
+
 ### Usage
 #### Random projection:
 python train.py \
